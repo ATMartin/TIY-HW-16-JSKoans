@@ -100,20 +100,63 @@ describe("About Applying What We Have Learnt", function() {
 
   /*********************************************************************************/
   /* UNCOMMENT FOR EXTRA CREDIT */
-  /*
   it("should find the largest prime factor of a composite number", function () {
+    var isPrime = function(n) {
+      var prime = true;
+      _.range(2, n).forEach(function(i) {
+        if (n % i === 0) { prime = false; }
+      });
+      return prime;
+    };
+    var primeFactors = [];
 
+    var largestPrimeFactor = function(n) {
+      _.range(n, 1, -1).forEach(function(div) {
+        if (n % div === 0 && isPrime(div)) {
+          primeFactors.push(div);
+        };
+      });
+      return _.max(primeFactors);
+    };
+    
+    expect(largestPrimeFactor(210)).toBe(7);
   });
-
+  
   it("should find the largest palindrome made from the product of two 3 digit numbers", function () {
 
-  });
+    var largestPalindrome = function() {
+      var palindromes = [];
+      _.range(100, 1000).forEach(function(i) {
+        _.range(100, 1000).forEach(function(j) {
+          if ((i*j).toString().split('').reverse().join('') === (i*j).toString()) {
+            palindromes.push(i*j);
+          }
+        });
+      });
+      return _.max(palindromes);
+    };
 
+    expect(largestPalindrome()).toBe(906609);
+  });
+  
   it("should find the smallest number divisible by each of the numbers 1 to 20", function () {
+    /**
+     * This causes a stack overflow in Chrome, 
+     * but it's a working recursive solution.
 
+    var rangeIt = function(num) {
+      _.range(2, 21).forEach(function(div) {
+        if (num % div !== 0) {
+          console.log("%d not div by %d", num, div);
+          rangeIt(num+20);
+        }
+      });
+      return num;
+    };
+    */
 
-  });
-  */
+    
+ }); 
 
   it("should find the difference between the sum of the squares and the square of the sums", function () {
     var scores = [10, 20, 30, 40, 50];
@@ -130,9 +173,40 @@ describe("About Applying What We Have Learnt", function() {
     var diff = sumSquares - squareSums;
     return diff;
   });
-  /*
+  
   it("should find the 10001st prime", function () {
+    // So I need to count primes. 10k of them, to be exact. Then another. 
+    // My first thought is to repurpose my isPrime function from above. 
+    // I can count up from 1 and push each "isPrime" number into an array, 
+    // and just "pop" that array when its "length" equals "10001". 
+    // That seems...EXCESSIVE. But hell, let's try that first. 
+    var isPrime = function(n) {
+      var prime = true;
+       _.range(2, n).forEach(function(i) {
+        if (n % i === 0) { prime = false; }
+      });
+      return prime;
+    };
+    
+    var nthPrime = function(n) {
+      var primes = [1, 2, 3, 5, 7],
+          i = 11;
 
+      while(primes.length <= n) {
+        // Control loop? Too much?
+        // primes.forEach(function(p) {
+        //  if (i % p === 0) { return; }
+        // });
+        if (isPrime(i)) { 
+          primes.push(i); 
+          //console.log(i);
+        }
+        i += 2;
+      }
+      return primes.pop();
+    };
+
+    expect(nthPrime(10001)).toBe(104743);
   });
-  */
+  
 });
