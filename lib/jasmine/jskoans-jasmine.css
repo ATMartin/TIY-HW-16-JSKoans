@@ -106,6 +106,13 @@ h1 {
   margin-right: 5px;
   margin-bottom: 10px;
   background: #eef;
+  opacity: 0;
+  transition: opacity ease 1s;
+  position: relative;
+}
+
+.errorMessage:hover {
+  opacity: 1;
 }
 
 .meditate {
